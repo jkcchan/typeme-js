@@ -16,6 +16,7 @@ var Typeme = function(string, speed){
 	this.chars = this.string.split("");
 	this.currentChar = 0;
 	this.flags = [];
+	this.delay=0;
 	var that = this;
 	var interval = setInterval(function(){
 		that.printNextChar();
@@ -28,23 +29,35 @@ var Typeme = function(string, speed){
 		}
 	}
 	this.printNextChar = function(){
+		if(this.delay>0){
+			console.log(this.delay);
+			this.currentChar--;
+			this.delay--;
+			return;
+		}
 		if(this.chars[this.currentChar]=="%"&&this.chars[this.currentChar+1]=="%"){
-			console.log(2);
-			switch(this.chars[this.currentChar+2]){
-				case 'n':
-					this.chars[this.currentChar]="<br/>";
-					break;
-				case 't':
-					this.chars[this.currentChar]="&emsp;";
-					break;
-				case 'f':
-					this.createFlag(this.currentChar);
-					this.chars[this.currentChar]="";
-					break;
-			}
-			$("#body").html($("#body").html()+this.chars[this.currentChar]);
+			if(parseInt(this.chars[this.currentChar+2])>0){
+				this.delay = parseInt(this.chars[this.currentChar+2]);
+				console.log(this.delay);
+				this.currentChar+=2;
+				return;
+			}else {
+				switch(this.chars[this.currentChar+2]){
+					case 'n':
+						this.chars[this.currentChar]="<br/>";
+						break;
+					case 't':
+						this.chars[this.currentChar]="&emsp;";
+						break;
+					case 'f':
+						this.createFlag(this.currentChar);
+						this.chars[this.currentChar]="";
+						break;
+				}
+				$("#body").html($("#body").html()+this.chars[this.currentChar]+this.chars[this.currentChar+3]);
 
-			this.currentChar+=2;
+				this.currentChar+=3;
+			}
 		}else{
 			$("#body").html($("#body").html()+this.chars[this.currentChar]);
 		}
