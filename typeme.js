@@ -15,6 +15,7 @@ var Typeme = function(string, speed){
 	this.string = string;
 	this.chars = this.string.split("");
 	this.currentChar = 0;
+	this.flags = [];
 	var that = this;
 	var interval = setInterval(function(){
 		that.printNextChar();
@@ -36,6 +37,10 @@ var Typeme = function(string, speed){
 				case 't':
 					this.chars[this.currentChar]="&emsp;";
 					break;
+				case 'f':
+					this.createFlag(this.currentChar);
+					this.chars[this.currentChar]="";
+					break;
 			}
 			$("#body").html($("#body").html()+this.chars[this.currentChar]);
 
@@ -44,5 +49,19 @@ var Typeme = function(string, speed){
 			$("#body").html($("#body").html()+this.chars[this.currentChar]);
 		}
 	}
-
+	this.createFlag = function(n){
+		this.flags.push({
+			'position':n,
+			'triggered':false
+		});
+		console.log(this.flags);
+	}
+	this.findLatestFlag = function(){
+		var latest=-1;
+		for(flag in this.flags){
+			latest = this.flags[flag].position>latest&&!this.flags[flag].triggered?flag:latest;
+			
+		}
+		return latest;
+	}
 }
