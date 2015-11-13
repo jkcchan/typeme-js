@@ -2,7 +2,8 @@
 ## Javascript Library to simulate typing.
 
 ## Syntax
-`var foo = new Typeme('Hello! My name is Jacob Chan', 50);`
+
+`var foo = new Typeme('String here! Lets set a delay for 33 cycles %%33%%. And add a new line. %%n%%. The next parameter is how long (in milliseconds) one cycle will be.', 50);`
 
 ## What can you do with this?
 ### Double percent (%%) syntax:
