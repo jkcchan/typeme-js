@@ -11,12 +11,21 @@ var Typeme = function(string, speed){
 	var interval = setInterval(function(){
 		that.printNextChar();
 		that.determineNextChar();
+		that.showHide();
 	},this.speed);
 	this.determineNextChar = function(){
 		this.currentChar++;
 		if (this.currentChar>=this.chars.length){
 			clearInterval(interval);
 		}
+	}
+	this.initCursor function(){
+		target.append("<span id='cursor'>_</span>");
+	}
+	this.showHide = function(){
+		if($("#cursor").is(":visible")){
+			$("#cursor").hide();
+		} else $("#cursor").show();
 	}
 	this.printNextChar = function(){
 		if(this.delay>0){
