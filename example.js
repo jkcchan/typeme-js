@@ -1,0 +1,1 @@
+var foo = new Typeme('Hello! Typeme.js is a small Javascript library that simulates the typing effect that you see here.%%n%% %%n%% %%50%%Check the source to see how lines, tabs, delays (and more) are made.',50, $("#body"));

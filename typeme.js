@@ -1,6 +1,6 @@
 // var a = new Typeme("%%f%%Jacob Chan%%t%%Systems Design Engineering%%n%%Software Developer Intern at SMART Technologies",100);
 
-var Typeme = function(string, speed){
+var Typeme = function(string, speed, target){
 	this.speed = typeof speed == "number"? speed: 100
 	this.string = string;
 	this.chars = this.string.split("");
@@ -55,7 +55,7 @@ var Typeme = function(string, speed){
 						default:
 							break;
 					}
-					$("#body").html($("#body").html()+this.chars[this.currentChar]+this.chars[this.currentChar+5]);
+					target.html(target.html()+this.chars[this.currentChar]+this.chars[this.currentChar+5]);
 
 					this.currentChar+=5;
 				}
@@ -94,12 +94,12 @@ var Typeme = function(string, speed){
 					for(var j=2; j<lengthOfArg+2; j++){
 						this.chars[this.currentChar+2]+=(this.chars[this.currentChar+j]);
 					}
-					$("#body").html($("#body").html()+this.chars[this.currentChar+2])
+					target.html(target.html()+this.chars[this.currentChar+2])
 					this.currentChar+=4+lengthOfArg;
 				}
 			}
 		}else{
-			$("#body").html($("#body").html()+this.chars[this.currentChar]);
+			target.html(target.html()+this.chars[this.currentChar]);
 		}
 	}
 	this.createFlag = function(n){
