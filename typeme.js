@@ -1,37 +1,49 @@
 // var a = new Typeme("%%f%%Jacob Chan%%t%%Systems Design Engineering%%n%%Software Developer Intern at SMART Technologies",100);
 
 var Typeme = function(string, speed, target){
-	this.speed = typeof speed == "number"? speed: 100
+	this.speed = typeof speed == "number"? speed: 100;
 	this.string = string;
 	this.chars = this.string.split("");
 	this.currentChar = 0;
 	this.flags = [];
 	this.delay=0;
 	var that = this;
-	var interval = setInterval(function(){
-		that.printNextChar();
-		that.determineNextChar();
-		that.showHide();
-	},this.speed);
+	var interval;
+	target.after("<span id='cursor'>_</span>");
+	this.startTyping = function(){
+		interval = setInterval(function(){
+			that.printNextChar();
+			that.determineNextChar();
+		},that.speed);
+	}
 	this.determineNextChar = function(){
 		this.currentChar++;
 		if (this.currentChar>=this.chars.length){
 			clearInterval(interval);
+			$("#cursor").hide();
 		}
 	}
-	this.initCursor function(){
-		target.append("<span id='cursor'>_</span>");
+	this.remove = function(){
+		clearInterval(interval);
+		$("#cursor").hide();
 	}
-	this.showHide = function(){
-		if($("#cursor").is(":visible")){
-			$("#cursor").hide();
-		} else $("#cursor").show();
-	}
+	this.blinkingDelay = 0;
 	this.printNextChar = function(){
 		if(this.delay>0){
 			this.currentChar--;
 			this.delay--;
+			this.blinkingDelay++;
+			console.log(this.blinkingDelay);
+			if(this.blinkingDelay>10){
+				if($("#cursor").is(':visible')){
+					$("#cursor").hide();
+				} else $("#cursor").show();
+				this.blinkingDelay=0;
+			}
 			return;
+		}
+		if(!$("#cursor").is(':visible')){
+			$("#cursor").show();
 		}
 		if(this.chars[this.currentChar]=="%"&&this.chars[this.currentChar+1]=="%"){
 			if(this.chars[this.currentChar+3]=="%"&&this.chars[this.currentChar+4]=="%"){
