@@ -1,34 +1,54 @@
 // var a = new Typeme("%%f%%Jacob Chan%%t%%Systems Design Engineering%%n%%Software Developer Intern at SMART Technologies",100);
 
 var Typeme = function(string, speed, target){
-	this.speed = typeof speed == "number"? speed: 100
+	this.speed = typeof speed == "number"? speed: 100;
 	this.string = string;
 	this.chars = this.string.split("");
 	this.currentChar = 0;
 	this.flags = [];
 	this.delay=0;
 	var that = this;
-	var interval = setInterval(function(){
-		that.printNextChar();
-		that.determineNextChar();
-	},this.speed);
+	var interval;
+	target.after("<span id='cursor'>_</span>");
+	this.startTyping = function(){
+		interval = setInterval(function(){
+			that.printNextChar();
+			that.determineNextChar();
+		},that.speed);
+	}
 	this.determineNextChar = function(){
 		this.currentChar++;
 		if (this.currentChar>=this.chars.length){
 			clearInterval(interval);
+			$("#cursor").hide();
 		}
 	}
+	this.remove = function(){
+		clearInterval(interval);
+		$("#cursor").hide();
+	}
+	this.blinkingDelay = 0;
 	this.printNextChar = function(){
 		if(this.delay>0){
 			this.currentChar--;
 			this.delay--;
+			this.blinkingDelay++;
+			if(this.blinkingDelay>10){
+				if($("#cursor").is(':visible')){
+					$("#cursor").hide();
+				} else $("#cursor").show();
+				this.blinkingDelay=0;
+			}
 			return;
+		}
+		if(!$("#cursor").is(':visible')){
+			$("#cursor").show();
 		}
 		if(this.chars[this.currentChar]=="%"&&this.chars[this.currentChar+1]=="%"){
 			if(this.chars[this.currentChar+3]=="%"&&this.chars[this.currentChar+4]=="%"){
 				if(parseInt(this.chars[this.currentChar+2])>0){
 					this.delay = parseInt(this.chars[this.currentChar+2]);
-					console.log(this.delay);
+					
 					this.currentChar+=4;
 					return;
 				}else {
@@ -53,7 +73,6 @@ var Typeme = function(string, speed, target){
 			} else {
 				var lengthOfArg = undefined;
 				var totalArg = "";
-				console.log(totalArg);
 				for(var i =2; i<this.chars.length-this.currentChar; i++){
 					if(this.chars[this.currentChar+i]=="%"&&this.chars[this.currentChar+i+1]=="%"){
 						lengthOfArg = i-2;
@@ -63,7 +82,6 @@ var Typeme = function(string, speed, target){
 						continue;
 					}
 				}
-				console.log(lengthOfArg);
 				if(parseInt(totalArg)>0){
 					this.delay = parseInt(totalArg);
 					this.currentChar+=3+lengthOfArg;
@@ -98,7 +116,6 @@ var Typeme = function(string, speed, target){
 			'position':n,
 			'triggered':false
 		});
-		console.log(this.flags);
 	}
 	this.findLatestFlag = function(){
 		var latest=-1;
