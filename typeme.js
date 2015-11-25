@@ -33,7 +33,6 @@ var Typeme = function(string, speed, target){
 			this.currentChar--;
 			this.delay--;
 			this.blinkingDelay++;
-			console.log(this.blinkingDelay);
 			if(this.blinkingDelay>10){
 				if($("#cursor").is(':visible')){
 					$("#cursor").hide();
@@ -49,7 +48,7 @@ var Typeme = function(string, speed, target){
 			if(this.chars[this.currentChar+3]=="%"&&this.chars[this.currentChar+4]=="%"){
 				if(parseInt(this.chars[this.currentChar+2])>0){
 					this.delay = parseInt(this.chars[this.currentChar+2]);
-					console.log(this.delay);
+					
 					this.currentChar+=4;
 					return;
 				}else {
@@ -74,7 +73,6 @@ var Typeme = function(string, speed, target){
 			} else {
 				var lengthOfArg = undefined;
 				var totalArg = "";
-				console.log(totalArg);
 				for(var i =2; i<this.chars.length-this.currentChar; i++){
 					if(this.chars[this.currentChar+i]=="%"&&this.chars[this.currentChar+i+1]=="%"){
 						lengthOfArg = i-2;
@@ -84,7 +82,6 @@ var Typeme = function(string, speed, target){
 						continue;
 					}
 				}
-				console.log(lengthOfArg);
 				if(parseInt(totalArg)>0){
 					this.delay = parseInt(totalArg);
 					this.currentChar+=3+lengthOfArg;
@@ -119,7 +116,6 @@ var Typeme = function(string, speed, target){
 			'position':n,
 			'triggered':false
 		});
-		console.log(this.flags);
 	}
 	this.findLatestFlag = function(){
 		var latest=-1;
