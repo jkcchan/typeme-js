@@ -5,11 +5,13 @@ var Typeme = function(string, speed, target){
 	this.string = string;
 	this.chars = this.string.split("");
 	this.currentChar = 0;
+	target = target ? target : $("body");
+	// console.log(target);
 	this.flags = [];
 	this.delay=0;
 	var that = this;
 	var interval;
-	target.after("<span id='cursor'>_</span>");
+	// target.after("<span id='cursor'>_</span>");
 	this.startTyping = function(){
 		interval = setInterval(function(){
 			that.printNextChar();
@@ -20,12 +22,13 @@ var Typeme = function(string, speed, target){
 		this.currentChar++;
 		if (this.currentChar>=this.chars.length){
 			clearInterval(interval);
-			$("#cursor").hide();
+			// $("#cursor").hide();
 		}
+		// console.log(this.currentChar);
 	}
 	this.remove = function(){
 		clearInterval(interval);
-		$("#cursor").hide();
+		// $("#cursor").hide();
 	}
 	this.blinkingDelay = 0;
 	this.printNextChar = function(){
@@ -34,16 +37,16 @@ var Typeme = function(string, speed, target){
 			this.delay--;
 			this.blinkingDelay++;
 			if(this.blinkingDelay>10){
-				if($("#cursor").is(':visible')){
-					$("#cursor").hide();
-				} else $("#cursor").show();
+				// if($("#cursor").is(':visible')){
+					// $("#cursor").hide();
+				// } else $("#cursor").show();
 				this.blinkingDelay=0;
 			}
 			return;
 		}
-		if(!$("#cursor").is(':visible')){
-			$("#cursor").show();
-		}
+		// if(!$("#cursor").is(':visible')){
+			// $("#cursor").show();
+		// }
 		if(this.chars[this.currentChar]=="%"&&this.chars[this.currentChar+1]=="%"){
 			if(this.chars[this.currentChar+3]=="%"&&this.chars[this.currentChar+4]=="%"){
 				if(parseInt(this.chars[this.currentChar+2])>0){
@@ -89,22 +92,27 @@ var Typeme = function(string, speed, target){
 				} else{
 					switch(this.chars[this.currentChar+2]){
 						case 'b':
-							this.chars[this.currentChar+2]="<strong>";
+							this.chars[this.currentChar+2]="<strong id='"+this.currentChar+"'></strong>";
 							break;
 						case 'i':
-							this.chars[this.currentChar+2]="<em>";
+							this.chars[this.currentChar+2]="<em id='"+this.currentChar+"'></em>";
 							break;
 						case 'u':
-							this.chars[this.currentChar+2]="<u>";
+							this.chars[this.currentChar+2]="<u id='"+this.currentChar+"'></u>";
 							break;
 						default:
 							break;
 					}
-					for(var j=2; j<lengthOfArg+2; j++){
-						this.chars[this.currentChar+2]+=(this.chars[this.currentChar+j]);
+					var wrappedString = ""
+					for(var j=3; j<lengthOfArg+2; j++){
+						wrappedString+=(this.chars[this.currentChar+j]);
 					}
-					target.html(target.html()+this.chars[this.currentChar+2])
-					this.currentChar+=4+lengthOfArg;
+					// console.log(wrappedString);
+					target.html(target.html()+this.chars[this.currentChar+2]);
+					var wrappedTypeme = new Typeme(wrappedString, this.speed, $("#"+this.currentChar+""));
+					this.delay = wrappedString.length;
+					wrappedTypeme.startTyping();
+					this.currentChar+=3+lengthOfArg;
 				}
 			}
 		}else{
