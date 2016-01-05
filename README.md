@@ -11,14 +11,17 @@
 - %%t%% : Tab
 - %%f%% : Set flag
 - %%NUMBER%% : Delay for x amount of iterations (NUMBER is any number > 0)
+- %%i_______%% : Italics (text between %%'s that isn't the 'i')
+- %%b_______%% : Bold (text between %%'s that isn't the 'b')
+- %%u_______%% : Underline (text between %%'s that isn't the 'u')
+- %%a(link)_______%% : Link (where link is the actual link, and the text is the text)
 
 ## What features are planned?
 - %%d%% : Delete until flag (In progress)
-- %%i_______%% : Italics (text between %%'s that isn't the 'i') (In progress)
-- %%b_______%% : Bold (text between %%'s that isn't the 'b') (In progress)
-- %%u_______%% : Underline (text between %%'s that isn't the 'u') (In progress)
 - Nested commands
 - Flashing cursor
 
 ## Why?
 Wanted a one-line, simple library that will do this. Not much jQuery dependance either, might remove the dependance completely in the future.
+
+NOTE: The double % symbols must have a space in between them. (i.e. %%n%% %%n%%, not %%n%%%%n%%)

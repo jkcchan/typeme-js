@@ -1,6 +1,6 @@
 // var a = new Typeme("%%f%%Jacob Chan%%t%%Systems Design Engineering%%n%%Software Developer Intern at SMART Technologies",100);
 
-var Typeme = function(string, speed, target){
+var Typeme = function(string, speed, target, isWrapped){
 	this.speed = typeof speed == "number"? speed: 100;
 	this.string = string;
 	this.chars = this.string.split("");
@@ -11,7 +11,8 @@ var Typeme = function(string, speed, target){
 	this.delay=0;
 	var that = this;
 	var interval;
-	// target.after("<span id='cursor'>_</span>");
+	if(!isWrapped)
+		target.after("<span id='cursor'>_</span>");
 	this.startTyping = function(){
 		interval = setInterval(function(){
 			that.printNextChar();
@@ -22,13 +23,13 @@ var Typeme = function(string, speed, target){
 		this.currentChar++;
 		if (this.currentChar>=this.chars.length){
 			clearInterval(interval);
-			// $("#cursor").hide();
+			$("#cursor").hide();
 		}
 		// console.log(this.currentChar);
 	}
 	this.remove = function(){
 		clearInterval(interval);
-		// $("#cursor").hide();
+		$("#cursor").hide();
 	}
 	this.blinkingDelay = 0;
 	this.printNextChar = function(){
@@ -37,16 +38,16 @@ var Typeme = function(string, speed, target){
 			this.delay--;
 			this.blinkingDelay++;
 			if(this.blinkingDelay>10){
-				// if($("#cursor").is(':visible')){
-					// $("#cursor").hide();
-				// } else $("#cursor").show();
+				if($("#cursor").is(':visible')){
+					$("#cursor").hide();
+				} else $("#cursor").show();
 				this.blinkingDelay=0;
 			}
 			return;
 		}
-		// if(!$("#cursor").is(':visible')){
-			// $("#cursor").show();
-		// }
+		if(!$("#cursor").is(':visible')){
+			$("#cursor").show();
+		}
 		if(this.chars[this.currentChar]=="%"&&this.chars[this.currentChar+1]=="%"){
 			if(this.chars[this.currentChar+3]=="%"&&this.chars[this.currentChar+4]=="%"){
 				if(parseInt(this.chars[this.currentChar+2])>0){
@@ -116,7 +117,7 @@ var Typeme = function(string, speed, target){
 									}
 								}
 							}
-							this.chars[this.currentChar+2]="<a href='"+href+"'id='"+this.currentChar+"'></a>";
+							this.chars[this.currentChar+2]="<a target='_blank' href='"+href+"'id='"+this.currentChar+"'></a>";
 							break;
 						default:
 							break;
@@ -135,7 +136,7 @@ var Typeme = function(string, speed, target){
 						this.delay = wrappedString.length-1;
 					}
 					target.html(target.html()+this.chars[this.currentChar+2]);
-					var wrappedTypeme = new Typeme(wrappedString, this.speed, $("#"+this.currentChar+""));
+					var wrappedTypeme = new Typeme(wrappedString, this.speed, $("#"+this.currentChar+""), true);
 					
 					wrappedTypeme.startTyping();
 					this.currentChar+=3+lengthOfArg;
