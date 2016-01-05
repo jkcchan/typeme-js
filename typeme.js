@@ -134,7 +134,6 @@ var Typeme = function(string, speed, target){
 						}
 						this.delay = wrappedString.length-1;
 					}
-					console.log(wrappedString);
 					target.html(target.html()+this.chars[this.currentChar+2]);
 					var wrappedTypeme = new Typeme(wrappedString, this.speed, $("#"+this.currentChar+""));
 					
@@ -145,9 +144,6 @@ var Typeme = function(string, speed, target){
 		}else{
 			target.html(target.html()+this.chars[this.currentChar]);
 		}
-	}
-	this.getLink = function(string){
-
 	}
 	this.createFlag = function(n){
 		this.flags.push({
