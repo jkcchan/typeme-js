@@ -100,17 +100,44 @@ var Typeme = function(string, speed, target){
 						case 'u':
 							this.chars[this.currentChar+2]="<u id='"+this.currentChar+"'></u>";
 							break;
+						case 'a':
+							var isLink = true;
+							if(this.chars[this.currentChar+3]!="("){
+								break;
+							}
+							else {
+								var href="";
+								for (var x =4; x < this.chars.length ; x++){
+									if(this.chars[this.currentChar+x]==")"){
+										var linkLength = x - 4;
+										break;
+									} else {
+										href += this.chars[this.currentChar+x];
+									}
+								}
+							}
+							this.chars[this.currentChar+2]="<a href='"+href+"'id='"+this.currentChar+"'></a>";
+							break;
 						default:
 							break;
 					}
-					var wrappedString = ""
-					for(var j=3; j<lengthOfArg+2; j++){
-						wrappedString+=(this.chars[this.currentChar+j]);
+					if(!isLink){
+						var wrappedString = ""
+						for(var j=3; j<lengthOfArg+2; j++){
+							wrappedString+=(this.chars[this.currentChar+j]);
+						}
+						this.delay = wrappedString.length;
+					} else {
+						var wrappedString = ""
+						for(var j=3; j<lengthOfArg-linkLength+1; j++){
+							wrappedString+=(this.chars[this.currentChar+j+linkLength+2]);
+						}
+						this.delay = wrappedString.length-1;
 					}
-					// console.log(wrappedString);
+					console.log(wrappedString);
 					target.html(target.html()+this.chars[this.currentChar+2]);
 					var wrappedTypeme = new Typeme(wrappedString, this.speed, $("#"+this.currentChar+""));
-					this.delay = wrappedString.length;
+					
 					wrappedTypeme.startTyping();
 					this.currentChar+=3+lengthOfArg;
 				}
@@ -118,6 +145,9 @@ var Typeme = function(string, speed, target){
 		}else{
 			target.html(target.html()+this.chars[this.currentChar]);
 		}
+	}
+	this.getLink = function(string){
+
 	}
 	this.createFlag = function(n){
 		this.flags.push({

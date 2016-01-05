@@ -1,2 +1,2 @@
-var foo = new Typeme('Hello! %%uTypeme.js%% is a %%ismall%% %%bJavascript%% library that simulates the typing effect that you see here.%%n%% %%n%% %%50%%Check the source to see how lines, tabs, delays (and more) are made.',50, $("#body"));
+var foo = new Typeme('Hello! %%a(google.ca)Typeme.js%% is a %%ismall%% %%bJavascript%% library that simulates the typing effect that you see here.%%n%% %%n%% %%50%%Check the source to see how lines, tabs, delays (and more) are made.',50, $("#body"));
 foo.startTyping();
