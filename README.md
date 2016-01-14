@@ -3,7 +3,16 @@
 
 ## Syntax
 
-`var foo = new Typeme('String here! Lets set a delay for 33 cycles %%33%%. And add a new line. %%n%%. The next parameter is how long (in milliseconds) one cycle will be.', 50);`
+`var foo = new Typeme('String here! Lets set a delay for 33 cycles %%33%%. And add a new line. %%n%% The end.', 50 $("body"));`
+
+## Parameters
+
+Parameter | Type | Value
+------------ | ------------- | -------------
+string | string | The string to be typed. NOTE: The double % symbols must have a space in between them. (i.e. %%n%% %%n%%, not %%n%%%%n%%)
+speed | number | Represents the time for each cycle in milliseconds. Default to `100`.
+target | jquery selector | Parameter to select where the Typeme will start typing. Default to `$("body")`.
+isWrapped (optional) | bool | Typeme uses this to handle wrapped tags. set to `true` to not use the cursor.
 
 ## What can you do with this?
 ### Double percent (%%) syntax:
@@ -24,4 +33,5 @@
 ## Why?
 Wanted a one-line, simple library that will do this. Not much jQuery dependance either, might remove the dependance completely in the future.
 
-NOTE: The double % symbols must have a space in between them. (i.e. %%n%% %%n%%, not %%n%%%%n%%)
+# Contribute!
+Check out the open [issues](https://github.com/jkcchan/typeme-js/issues). For any questions, please contact me at [jacob.chan5@gmail.com](mailto:jacob.chan5@gmail.com).
