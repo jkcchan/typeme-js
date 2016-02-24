@@ -1,9 +1,11 @@
 # Typeme.js
-## Javascript Library to simulate typing.
-
+## Simplest Javascript Library to simulate typing.
+![Typeme.js in action](http://i.imgur.com/j8BK1fF.gif)
 ## Syntax
 
-`var foo = new Typeme('String here! Lets set a delay for 33 cycles %%33%%. And add a new line. %%n%% The end.', 50 $("body"));`
+```javascript
+var foo = new Typeme('String here! Lets set a delay for 33 cycles %%33%%. And add a new line. %%n%% The end.', 50 $("body"));
+```
 
 ## Parameters
 
@@ -24,6 +26,7 @@ isWrapped (optional) | bool | Typeme uses this to handle wrapped tags. set to `t
 - %%b_______%% : Bold (text between %%'s that isn't the 'b')
 - %%u_______%% : Underline (text between %%'s that isn't the 'u')
 - %%a(link)_______%% : Link (where link is the actual link, and the text is the text)
+- %%s(id)_______%% : Span with given id (currently broken)
 
 ## What features are planned?
 - %%d%% : Delete until flag (In progress)
