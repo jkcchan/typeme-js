@@ -1,4 +1,5 @@
 <html>
+	<img id="logo"src="typemejs.png"/><br/><br/>
 	<a id="source"href="https://github.com/jkcchan/typeme-js">Source</a>
 	<p id="body"></p>
 	<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
@@ -17,3 +18,11 @@
 	}
 	</style>
 </html>
+<script>
+setInterval(function(){
+	if($("#logo").attr('src')=='typemejs-2.png')
+		$("#logo").attr('src','typemejs.png')
+	else
+		$("#logo").attr('src','typemejs-2.png')
+}, 400);
+</script>
